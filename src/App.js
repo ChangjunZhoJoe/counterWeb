@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+    // src/App.js
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    import React, { Component } from 'react';
 
-export default App;
+    class App extends Component {
+
+      constructor(props) {
+        super(props);
+        this.state = {counter: 0};
+        this.increase=this.increase.bind(this);
+      }
+
+      componentDidMount() {
+        fetch('https://l32vdty2ec.execute-api.ap-northeast-1.amazonaws.com/test5/getcount2')
+        .then(res => res.json())
+        .then((data) => {
+          this.setState({ counter: parseInt(data.body.Item.countNum.N) })
+        })
+        .catch(console.log)
+      }
+
+      increase(){
+        fetch('https://l32vdty2ec.execute-api.ap-northeast-1.amazonaws.com/test5/increase')
+        .then(res => res.json())
+        .then((data) => {
+          this.setState({ counter: this.state.counter +1 })
+        })
+        .catch(console.log)
+      }
+
+      render() {
+
+        return (
+          <div class="card">
+            <div class="card-body">
+              <p>count = {String(this.state.counter)}</p>
+              <button onClick={this.increase} >
+                increase
+              </button>
+            </div>
+          </div>
+        );
+      }
+    }
+        
+
+    export default App;
