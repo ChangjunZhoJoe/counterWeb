@@ -11,10 +11,16 @@
       }
 
       componentDidMount() {
-        fetch('https://l32vdty2ec.execute-api.ap-northeast-1.amazonaws.com/test5/getcount2')
+        fetch('https://l32vdty2ec.execute-api.ap-northeast-1.amazonaws.com/test5/getcount3',{
+          method: 'POST',
+          headers:{
+            'Access-Control-Allow-Origin':'*'
+          },
+          mode:'cors'
+        })
         .then(res => res.json())
         .then((data) => {
-          this.setState({ counter: parseInt(data.body.Item.countNum.N) })
+          this.setState({ counter: parseInt(data.Item.countNum.N) })
         })
         .catch(console.log)
       }
@@ -31,8 +37,8 @@
       render() {
 
         return (
-          <div class="card">
-            <div class="card-body">
+          <div className="card">
+            <div className="card-body">
               <p>count = {String(this.state.counter)}</p>
               <button onClick={this.increase} >
                 increase
