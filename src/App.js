@@ -8,9 +8,15 @@
         super(props);
         this.state = {counter: 0};
         this.increase=this.increase.bind(this);
+        this.refreshCount=this.refreshCount.bind(this)
       }
 
       componentDidMount() {
+        this.refreshCount()
+        window.setInterval(()=>{this.refreshCount()}, 3000);
+      }
+
+      refreshCount(){
         fetch('https://l32vdty2ec.execute-api.ap-northeast-1.amazonaws.com/test5/getcount3',{
           method: 'POST',
           headers:{
